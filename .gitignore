@@ -1,3 +1,5 @@
 *.py[c|o]
 
 *.egg-info
+
+.cache

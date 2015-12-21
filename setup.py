@@ -2,7 +2,10 @@ from setuptools import find_packages, setup
 
 from jeonminheebot import VERSION
 
-install_requires = []
+
+install_requires = [
+    'flake8 == 2.5.1',
+]
 
 
 tests_require = [
