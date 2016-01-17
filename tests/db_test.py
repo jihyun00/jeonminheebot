@@ -1,5 +1,3 @@
-from pytest import mark, config, raises
-
 from jeonminheebot.db import open_db, exist_data, insert_data, close_db
 
 
