@@ -5,11 +5,13 @@ from jeonminheebot import VERSION
 
 install_requires = [
     'flake8 == 2.5.1',
+    'html5lib == 0.9999999',
 ]
 
 
 tests_require = [
     'pytest >= 2.7.0',
+    'httpretty >= 0.8.12',
     'pytest-sugar',
 ]
 
@@ -32,6 +34,5 @@ setup(
     extras_require={
         'tests': tests_require,
     },
-    description='Check python import order.',
     long_description=readme()
 )

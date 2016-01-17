@@ -2,7 +2,7 @@ from urllib.error import URLError
 
 from pytest import mark, config, raises
 
-from jeonminheebot.crawler import request_html, parsing
+from jeonminheebot.crawler import request_html, parsing, push_noti
 
 
 real = mark.skipif(not config.getoption('--real'), reason='--real')
@@ -24,12 +24,8 @@ def test_request_html_httperror():
         request_html('http://weofjwefoiwejfw.com')
 
 
-@mark.parametrize('t, selector', [
-    ('#id', 'hello world'),
-    ('#a', 'foo bar'),
-])
-def test_parsing(t, selector):
-    html = '''
+@mark.parametrize('html, tag', [
+    ('''
     <html>
       <head></head>
       <body>
@@ -37,9 +33,11 @@ def test_parsing(t, selector):
           <div id="a">foo bar</div>
       </body>
     </html>
-    '''
-    assert parsing(html, selector)
-    assert parsing(html, selector) == t
+    ''', '#a'),
+])
+def test_parsing(html, tag):
+    assert parsing(html, tag)
 
-# 근데 왜 t랑 비교하지?
-# parametrize랑 test_parsing이랑 비교하는 걸 만들어야 할 듯
+
+def test_push_noti():
+    assert push_noti()
