@@ -1,5 +1,3 @@
-import sqlite3
-
 def open_db():
     return True
 
