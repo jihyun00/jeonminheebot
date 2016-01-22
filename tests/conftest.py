@@ -1,5 +1,4 @@
-import contextlib
-
+from flask import g
 from pytest import fixture
 from sqlalchemy import create_engine
 
@@ -31,6 +30,7 @@ def f_session(request):
         session = Session(bind=engine)
         app.config['TESTING'] = True
         setattr(g, 'sess', session)
+
         def finish():
             session.close()
             Base.metadata.drop_all(engine)

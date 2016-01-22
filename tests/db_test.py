@@ -1,9 +1,25 @@
 from pytest import mark, config
 
-from jeonminheebot.db import open_db, exist_data, insert_data, close_db
+from jeonminheebot.db import exist_data, insert_data, close_db
 
 
 real = mark.skipif(not config.getoption('--real'), reason='--real')
+
+
+def test_get_engine():
+    assert True
+
+
+@mark.parametrize('engine', [
+    (),
+])
+@real
+def test_get_alembic_config(engine):
+    assert True
+
+
+def test_get_session():
+    assert True
 
 
 @mark.parametrize('data', [
