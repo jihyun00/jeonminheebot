@@ -1,5 +1,7 @@
-from flask import current_app
+from flask import current_app, g
+from alembic.config import Config
 from sqlalchemy import create_engine
+from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 # alembic에 관련된 것도 추가할 것
@@ -14,9 +16,9 @@ def get_engine():
 
 
 def get_alembic_config(engine):
-    if not isinstance(engien, Engine):
+    if not isinstance(engine, Engine):
         raise Exception('boilerplate.db.get_alembic_config: engine is not'
-                        '`Engine'`)
+                        '`Engine`')
     config = Config()
     config.set_main_option('script_location', 'boilerplate:migrations')
     config.set_main_option('sqlalchemy.url', str(engine.url))
