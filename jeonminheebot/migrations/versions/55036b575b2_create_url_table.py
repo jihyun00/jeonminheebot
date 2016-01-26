@@ -1,7 +1,7 @@
 """create url table
 
 Revision ID: 55036b575b2
-Revises: 
+Revises:
 Create Date: 2016-01-27 04:19:52.506373
 
 """
