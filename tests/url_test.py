@@ -1,7 +1,5 @@
 from jeonminheebot.url import Url
 
-from pytest import mark
-
 
 def test_create_url(f_session):
     link = 'http://naver.com'

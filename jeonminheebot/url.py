@@ -6,9 +6,10 @@ from .db import Base
 
 __all__ = 'Url',
 
+
 class Url(Base):
 
-    url_id = Column(Integer, primary_key=True) 
+    url_id = Column(Integer, primary_key=True)
 
     link = Column(String)
 
