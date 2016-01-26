@@ -5,10 +5,10 @@ from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session as SqlalchemySession, sessionmaker
 
 
-def get_engine():
+def get_engine() -> Engine:
     config = current_app.config
     if 'DATABASE_ENGINE' in config:
         return config['DATABASE_ENGINE']
@@ -16,12 +16,12 @@ def get_engine():
     return config['DATABASE_ENGINE']
 
 
-def get_alembic_config(engine):
+def get_alembic_config(engine) -> Config:
     if not isinstance(engine, Engine):
         raise Exception('jeonminheebot.db.get_alembic_config: engine is not'
                         '`Engine`')
     config = Config()
-    config.set_main_option('script_location', '')
+    config.set_main_option('script_location', 'jeonminheebot:migrations')
     config.set_main_option('sqlalchemy.url', str(engine.url))
     return config
 
@@ -38,7 +38,7 @@ def get_database_revision(engine):
     def get_revision(rev, context):
         result[0] = rev and script.get_revision(rev)
         return []
-    with EnvironmentContext(config, script, fn=get_revision, 
+    with EnvironmentContext(config, script, fn=get_revision,
                             as_sql=False, destination_rev=None, tag=None):
         script.run_env()
     return result[0]
@@ -52,7 +52,7 @@ def downgrade_database(engine, revision):
     return True
 
 
-def get_session(engine=None):
+def get_session(engine=None) -> SqlalchemySession:
     if engine is None:
         engine = get_engine()
     if hasattr(g, 'sess'):
@@ -70,4 +70,4 @@ def close_db():
 
 
 Base = declarative_base()
-Session = sessionmaker(autocommit=True)
+Session = sessionmaker()
