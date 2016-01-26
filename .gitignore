@@ -5,3 +5,5 @@
 .cache
 
 *.swp
+
+*.db

@@ -1,10 +1,11 @@
 from flask import current_app, g
 from alembic.config import Config
+from alembic.environment import EnvironmentContext
+from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-# alembic에 관련된 것도 추가할 것
 
 
 def get_engine():
@@ -17,12 +18,38 @@ def get_engine():
 
 def get_alembic_config(engine):
     if not isinstance(engine, Engine):
-        raise Exception('boilerplate.db.get_alembic_config: engine is not'
+        raise Exception('jeonminheebot.db.get_alembic_config: engine is not'
                         '`Engine`')
     config = Config()
-    config.set_main_option('script_location', 'boilerplate:migrations')
+    config.set_main_option('script_location', '')
     config.set_main_option('sqlalchemy.url', str(engine.url))
     return config
+
+
+def initialize_database(engine):
+    return True
+
+
+def get_database_revision(engine):
+    config = get_alembic_config(engine)
+    script = ScriptDirectory.from_config(config)
+    result = [None]
+
+    def get_revision(rev, context):
+        result[0] = rev and script.get_revision(rev)
+        return []
+    with EnvironmentContext(config, script, fn=get_revision, 
+                            as_sql=False, destination_rev=None, tag=None):
+        script.run_env()
+    return result[0]
+
+
+def upgrade_database(engine, revision='head'):
+    return True
+
+
+def downgrade_database(engine, revision):
+    return True
 
 
 def get_session(engine=None):
@@ -36,14 +63,6 @@ def get_session(engine=None):
     except RuntimeError:
         pass
     return session
-
-
-def exist_data(data):
-    return True
-
-
-def insert_data():
-    return True
 
 
 def close_db():

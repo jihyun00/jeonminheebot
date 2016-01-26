@@ -1,37 +1,46 @@
-from pytest import mark, config
+import functools
+import os
+import tempfile
 
-from jeonminheebot.db import exist_data, insert_data, close_db
+from pytest import fixture
+from sqlalchemy import create_engine
+from jeonminheebot.db import (get_alembic_config, initialize_database, 
+                              get_database_revision, upgrade_database, 
+                              downgrade_database, get_session, close_db)
 
 
-real = mark.skipif(not config.getoption('--real'), reason='--real')
+@fixture
+def get_tmp_engine(request):
+    _, filename = tempfile.mkstemp()
+    engine = create_engine('sqlite:///' + filename)
+    request.addfinalizer(functools.partial(os.remove, filename))
+    return engine
 
 
-def test_get_engine():
-    assert True
+def test_get_alembic_config(get_tmp_engine):
+    assert get_alembic_config(get_tmp_engine)
 
 
-@mark.parametrize('engine', [
-    (),
-])
-@real
-def test_get_alembic_config(engine):
-    assert True
+def test_initialize_database(get_tmp_engine):
+    initialize_database(get_tmp_engine)
+    revision = get_database_revision(get_tmp_engine)
+    assert revision.is_head
+
+
+def test_get_database_revision(get_tmp_engine):
+    assert get_database_revision(get_tmp_engine) 
+
+
+def test_upgrade_database(get_tmp_engine):
+    assert upgrade_database(get_tmp_engine)
+
+
+def test_downgrade_database(get_tmp_engine, revision=''):
+    assert downgrade_database(get_tmp_engine, revision)
 
 
 def test_get_session():
-    assert True
-
-
-@mark.parametrize('data', [
-    ('http://naver.com/aaa'),
-])
-@real
-def test_exist_data(data):
-    assert exist_data(data)
-
-
-def test_insert_data():
-    assert insert_data()
+    assert get_session()
 
 
 def test_close_db():
