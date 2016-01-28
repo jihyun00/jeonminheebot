@@ -9,6 +9,7 @@ install_requires = [
     'alembic == 0.7.4',
     'flake8 == 2.5.1',
     'html5lib == 0.9999999',
+    'lxml == 3.5.0',
 ]
 
 

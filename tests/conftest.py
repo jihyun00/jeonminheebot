@@ -1,3 +1,7 @@
+import functools
+import os
+import tempfile
+
 from flask import g
 from pytest import fixture
 from sqlalchemy import create_engine
@@ -38,3 +42,11 @@ def f_session(request):
 
         request.addfinalizer(finish)
         return session
+
+
+@fixture
+def get_tmp_engine(request):
+    _, filename = tempfile.mkstemp()
+    engine = create_engine('sqlite:///' + filename)
+    request.addfinalizer(functools.partial(os.remove, filename))
+    return engine

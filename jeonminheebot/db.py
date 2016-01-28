@@ -31,17 +31,7 @@ def initialize_database(engine):
 
 
 def get_database_revision(engine):
-    config = get_alembic_config(engine)
-    script = ScriptDirectory.from_config(config)
-    result = [None]
-
-    def get_revision(rev, context):
-        result[0] = rev and script.get_revision(rev)
-        return []
-    with EnvironmentContext(config, script, fn=get_revision,
-                            as_sql=False, destination_rev=None, tag=None):
-        script.run_env()
-    return result[0]
+    return True
 
 
 def upgrade_database(engine, revision='head'):

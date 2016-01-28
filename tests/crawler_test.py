@@ -33,10 +33,11 @@ def test_request_html_httperror():
           <div id="a">foo bar</div>
       </body>
     </html>
-    ''', '#a'),
+    ''', 'div'),
 ])
 def test_parsing(html, tag):
     assert parsing(html, tag)
+    assert parsing(html, tag) == 'foo bar'
 
 
 def test_push_noti():
