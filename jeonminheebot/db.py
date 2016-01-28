@@ -1,7 +1,5 @@
 from flask import current_app, g
 from alembic.config import Config
-from alembic.environment import EnvironmentContext
-from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base

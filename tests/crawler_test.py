@@ -24,20 +24,22 @@ def test_request_html_httperror():
         request_html('http://weofjwefoiwejfw.com')
 
 
-@mark.parametrize('html, tag', [
+@mark.parametrize('html, class_name', [
     ('''
     <html>
       <head></head>
       <body>
           <h1 id="id">hello world</h1>
           <div id="a">foo bar</div>
+          <div class="nick">nyan</div>
+          <div class="nick">minions</div>
       </body>
     </html>
-    ''', 'div'),
+    ''', 'nick'),
 ])
-def test_parsing(html, tag):
-    assert parsing(html, tag)
-    assert parsing(html, tag) == 'foo bar'
+def test_parsing(html, class_name):
+    assert parsing(html, class_name)
+    assert parsing(html, class_name) == ['nyan', 'minions']
 
 
 def test_push_noti():

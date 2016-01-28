@@ -1,5 +1,3 @@
-from pytest import fixture
-from sqlalchemy import create_engine
 from jeonminheebot.db import (get_alembic_config, initialize_database,
                               get_database_revision, upgrade_database,
                               downgrade_database, get_session, close_db)
