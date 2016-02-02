@@ -11,6 +11,10 @@ class Url(Base):
 
     url_id = Column(Integer, primary_key=True)
 
-    link = Column(String, nullable=False)
+    classname = Column(String, nullable=False)
+
+    href = Column(String, nullable=False)
+
+    title = Column(String, nullable=False)
 
     __tablename__ = 'url'
