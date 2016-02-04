@@ -35,7 +35,7 @@ def test_request_html_httperror():
               <dl>
                 <dt>
                   <a href="http://naver.com/tower" target="_blank"
-                          class="taetop">태양의 탑6</a>
+                     class="N:title;taetop">태양의 탑6</a>
                 </dt>
                   <dd class="txt_block"></dd>
               </dl>
@@ -45,7 +45,17 @@ def test_request_html_httperror():
               <dl>
                 <dt>
                   <a href="http://naver.com/demonic" target="_blank"
-                          class="demonic">룬의 아이들 데모닉</a>
+                     class="N:title;demonic">룬의 아이들 데모닉</a>
+                </dt>
+                  <dd class="txt_block"></dd>
+              </dl>
+            </li>
+            <li style="position:relative;">
+              <div class="thumb type_search"></div>
+              <dl>
+                <dt>
+                  <a href="http://naver.com/aaa" target="_blank"
+                     class="N:error;stone">세월의 돌</a>
                 </dt>
                   <dd class="txt_block"></dd>
               </dl>
@@ -53,14 +63,14 @@ def test_request_html_httperror():
           </ul>
       </body>
     </html>
-    ''', 'N=a:bls.title'),
+    ''', 'N:title'),
 ])
 def test_parsing(html, class_name):
     assert parsing(html, class_name)
-    assert parsing(html, class_name) == [{'class': 'taetop',
+    assert parsing(html, class_name) == [{'class': 'N:title;taetop',
                                           'href': 'http://naver.com/tower',
                                           'title': '태양의 탑6'},
-                                         {'class': 'demonic',
+                                         {'class': 'N:title;demonic',
                                           'href': 'http://naver.com/demonic',
                                           'title': '룬의 아이들 데모닉'}]
 
