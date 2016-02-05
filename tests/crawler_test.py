@@ -75,12 +75,5 @@ def test_parsing(html, class_name):
                                           'title': '룬의 아이들 데모닉'}]
 
 
-@mark.parametrize('class_name', [
-    ('N:title'),
-])
-def test_compare_data(class_name):
-    assert compare_data()
-
-
 def test_push_noti():
     assert push_noti()
