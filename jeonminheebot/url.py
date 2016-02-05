@@ -1,4 +1,3 @@
-from sqlalchemy import UniqueConstraint
 from sqlalchemy.schema import Column
 from sqlalchemy.types import Integer, String
 
