@@ -5,7 +5,7 @@ from jeonminheebot import VERSION
 
 install_requires = [
     'flask == 0.10.1',
-    'sqlalchemy == 0.9.8',
+    'sqlalchemy == 1.0.11',
     'alembic == 0.7.4',
     'flake8 == 2.5.1',
     'html5lib == 0.9999999',

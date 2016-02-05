@@ -1,3 +1,4 @@
+from sqlalchemy import UniqueConstraint
 from sqlalchemy.schema import Column
 from sqlalchemy.types import Integer, String
 
@@ -11,7 +12,7 @@ class Url(Base):
 
     url_id = Column(Integer, primary_key=True)
 
-    classname = Column(String, nullable=False)
+    classname = Column(String, unique=True, nullable=False)
 
     href = Column(String, nullable=False)
 

@@ -1,8 +1,8 @@
 from urllib.error import URLError
 
-from pytest import mark, config, raises
+from pytest import config, mark, raises
 
-from jeonminheebot.crawler import request_html, parsing, push_noti
+from jeonminheebot.crawler import parsing, push_noti, request_html
 
 
 real = mark.skipif(not config.getoption('--real'), reason='--real')
@@ -67,12 +67,19 @@ def test_request_html_httperror():
 ])
 def test_parsing(html, class_name):
     assert parsing(html, class_name)
-    assert parsing(html, class_name) == [{'class': 'N:title;taetop',
+    assert parsing(html, class_name) == [{'classname': 'N:title;taetop',
                                           'href': 'http://naver.com/tower',
                                           'title': '태양의 탑6'},
-                                         {'class': 'N:title;demonic',
+                                         {'classname': 'N:title;demonic',
                                           'href': 'http://naver.com/demonic',
                                           'title': '룬의 아이들 데모닉'}]
+
+
+@mark.parametrize('class_name', [
+    ('N:title'),
+])
+def test_compare_data(class_name):
+    assert compare_data()
 
 
 def test_push_noti():

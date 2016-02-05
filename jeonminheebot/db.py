@@ -1,9 +1,10 @@
-from flask import current_app, g
 from alembic.config import Config
+from flask import current_app, g
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session as SqlalchemySession, sessionmaker
+from werkzeug.local import LocalProxy
 
 
 def get_engine() -> Engine:
@@ -24,22 +25,6 @@ def get_alembic_config(engine) -> Config:
     return config
 
 
-def initialize_database(engine):
-    return True
-
-
-def get_database_revision(engine):
-    return True
-
-
-def upgrade_database(engine, revision='head'):
-    return True
-
-
-def downgrade_database(engine, revision):
-    return True
-
-
 def get_session(engine=None) -> SqlalchemySession:
     if engine is None:
         engine = get_engine()
@@ -53,9 +38,6 @@ def get_session(engine=None) -> SqlalchemySession:
     return session
 
 
-def close_db():
-    return True
-
-
 Base = declarative_base()
 Session = sessionmaker()
+session = LocalProxy(get_session)

@@ -6,8 +6,8 @@ from flask import g
 from pytest import fixture
 from sqlalchemy import create_engine
 
-from jeonminheebot.db import Base, Session
 from jeonminheebot.app import app
+from jeonminheebot.db import Base, Session
 
 
 TEST_DATABASE_URL = 'sqlite:///jb.db'
