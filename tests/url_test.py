@@ -19,3 +19,9 @@ def test_create_url(f_session):
                                 .filter(Url.href == href) \
                                 .first()
     assert find_existed_url
+    assert hasattr(find_existed_url, 'classname')
+    assert hasattr(find_existed_url, 'href')
+    assert hasattr(find_existed_url, 'title')
+    assert find_existed_url.classname == classname
+    assert find_existed_url.href == href
+    assert find_existed_url.title == title
