@@ -24,7 +24,3 @@ def parsing(html, class_name):
             result.append(get_attrib.copy())
 
     return result
-
-
-def push_noti():
-    return True

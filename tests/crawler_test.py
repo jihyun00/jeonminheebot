@@ -2,7 +2,7 @@ from urllib.error import URLError
 
 from pytest import config, mark, raises
 
-from jeonminheebot.crawler import parsing, push_noti, request_html
+from jeonminheebot.crawler import parsing, request_html
 
 
 real = mark.skipif(not config.getoption('--real'), reason='--real')
@@ -73,7 +73,3 @@ def test_parsing(html, class_name):
                                          {'classname': 'N:title;demonic',
                                           'href': 'http://naver.com/demonic',
                                           'title': '룬의 아이들 데모닉'}]
-
-
-def test_push_noti():
-    assert push_noti()

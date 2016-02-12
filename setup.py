@@ -10,6 +10,7 @@ install_requires = [
     'flake8 == 2.5.1',
     'html5lib == 0.9999999',
     'lxml == 3.5.0',
+    'pync == 1.6.1',
 ]
 
 
@@ -38,5 +39,14 @@ setup(
     extras_require={
         'tests': tests_require,
     },
-    long_description=readme()
+    long_description=readme(),
+    options={
+        "py2app": {
+            "includes": ["PySide.QtCore",
+                         "PySide.QtGui",
+                         "PySide.QtWebKit",
+                         "PySide.QtNetwork",
+                         "PySide.QtXml"]
+        }
+    }
 )
