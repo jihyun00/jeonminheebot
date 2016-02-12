@@ -40,13 +40,4 @@ setup(
         'tests': tests_require,
     },
     long_description=readme(),
-    options={
-        "py2app": {
-            "includes": ["PySide.QtCore",
-                         "PySide.QtGui",
-                         "PySide.QtWebKit",
-                         "PySide.QtNetwork",
-                         "PySide.QtXml"]
-        }
-    }
 )
