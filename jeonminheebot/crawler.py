@@ -1,6 +1,11 @@
 from contextlib import closing
+import re
 from urllib.request import urlopen
-from lxml.html import fromstring
+
+from bs4 import BeautifulSoup
+
+
+__all__ = 'request_html', 'parsing',
 
 
 def request_html(url: str) -> str:
@@ -9,18 +14,13 @@ def request_html(url: str) -> str:
 
 
 def parsing(html, class_name):
-    page = fromstring(html)
-    get_tag = page.xpath('/html/body/ul/li/dl/dt/a')
-    result = []
-    get_attrib = {}
+    result = {}
+    soup = BeautifulSoup(html, 'html.parser')
+    get_tags = soup.find_all('a', class_=re.compile('N=a:bls.title*'))
 
-    for t in range(len(get_tag)):
-        get_class = get_tag[t].get('class')
+    title = get_tags[0].string.replace('\xa0', ' ')
 
-        if get_class.find(class_name) > -1:
-            get_attrib['classname'] = get_class
-            get_attrib['href'] = get_tag[t].get('href')
-            get_attrib['title'] = get_tag[t].text_content()
-            result.append(get_attrib.copy())
+    result['title'] = title
+    result['href'] = get_tags[0].get('href')
 
     return result

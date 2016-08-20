@@ -24,52 +24,19 @@ def test_request_html_httperror():
         request_html('http://weofjwefoiwejfw.com')
 
 
+def get_data():
+    f = open('doc.txt', 'r')
+    data = f.read()
+
+    return data
+
+
 @mark.parametrize('html, class_name', [
-    ('''
-    <html>
-      <head></head>
-      <body>
-          <ul class="basic" id="searchBiblioList" style="position:relative;">
-            <li style="position:relative;">
-              <div class="thumb type_search"></div>
-              <dl>
-                <dt>
-                  <a href="http://naver.com/tower" target="_blank"
-                     class="N:title;taetop">태양의 탑6</a>
-                </dt>
-                  <dd class="txt_block"></dd>
-              </dl>
-            </li>
-            <li style="position:relative;">
-              <div class="thumb type_search"></div>
-              <dl>
-                <dt>
-                  <a href="http://naver.com/demonic" target="_blank"
-                     class="N:title;demonic">룬의 아이들 데모닉</a>
-                </dt>
-                  <dd class="txt_block"></dd>
-              </dl>
-            </li>
-            <li style="position:relative;">
-              <div class="thumb type_search"></div>
-              <dl>
-                <dt>
-                  <a href="http://naver.com/aaa" target="_blank"
-                     class="N:error;stone">세월의 돌</a>
-                </dt>
-                  <dd class="txt_block"></dd>
-              </dl>
-            </li>
-          </ul>
-      </body>
-    </html>
-    ''', 'N:title'),
+    (get_data(), 'N=a:bls.title'),
 ])
 def test_parsing(html, class_name):
-    assert parsing(html, class_name)
-    assert parsing(html, class_name) == [{'classname': 'N:title;taetop',
-                                          'href': 'http://naver.com/tower',
-                                          'title': '태양의 탑6'},
-                                         {'classname': 'N:title;demonic',
-                                          'href': 'http://naver.com/demonic',
-                                          'title': '룬의 아이들 데모닉'}]
+    data = get_data()
+    assert parsing(data, class_name)
+    assert parsing(data, class_name) == {
+        'title': '세월의 돌 8',
+        'href': 'http://book.naver.com/bookdb/book_detail.nhn?bid=9309138'}
