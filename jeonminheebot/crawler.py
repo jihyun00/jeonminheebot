@@ -14,13 +14,14 @@ def request_html(url: str) -> str:
 
 
 def parsing(html, class_name):
-    result = {}
+    result = []
     soup = BeautifulSoup(html, 'html.parser')
     get_tags = soup.find_all('a', class_=re.compile('N=a:bls.title*'))
 
-    title = get_tags[0].string.replace('\xa0', ' ')
+    for tag in get_tags:
+        title = tag.string.replace('\xa0', ' ')
+        href = tag.get('href')
 
-    result['title'] = title
-    result['href'] = get_tags[0].get('href')
+        result.append({'title': title, 'href': href})
 
     return result
