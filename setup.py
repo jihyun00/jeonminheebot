@@ -11,9 +11,9 @@ install_requires = [
     'html5lib == 0.9999999',
     'lxml == 3.5.0',
     'pync == 1.6.1',
-    'plan == 0.5',
     'click == 6.2',
     'beautifulsoup4 == 4.4.0',
+    'celery == 3.1.23',
 ]
 
 
